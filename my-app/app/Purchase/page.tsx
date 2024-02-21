@@ -9,7 +9,6 @@ function Purchase() {
   const router = useRouter();
 
   const [item] = useLocalStorage("Item");
-
   const [purchaseData, setPurchaseData] = useLocalStorage("purchaseData");
   const formik = useFormik({
     initialValues: {
@@ -32,21 +31,22 @@ function Purchase() {
     }),
     onSubmit: async (values) => {
       try {
-        const response = await fetch("/api/purchaseroute", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values),
-        });
+        // const response = await fetch("/api/purchaseroute", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(values),
+        // });
 
-        if (!response.ok) {
-          throw new Error("Failed to submit purchase");
-        }
+        // if (!response.ok) {
+        //   throw new Error("Failed to submit purchase");
+        // }
 
-        console.log("purchase submitted successfully!");
+        // console.log("purchase submitted successfully!");
 
         setPurchaseData(values);
+        formik.resetForm();
       } catch (error) {
         console.error("Error submitting purchase:", error);
       }
@@ -90,7 +90,7 @@ function Purchase() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.purchase_ID}
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-1 "
               />
               {formik.touched.purchase_ID && formik.errors.purchase_ID ? (
                 <p className="text-red-500 text-sm mt-1">
@@ -113,7 +113,7 @@ function Purchase() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.purchase_date}
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-1 "
               />
               {formik.touched.purchase_date && formik.errors.purchase_date ? (
                 <p className="text-red-500 text-sm mt-1">
@@ -137,7 +137,7 @@ function Purchase() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.item_id}
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-1 "
               />
               {formik.touched.item_id && formik.errors.item_id ? (
                 <p className="text-red-500 text-sm mt-1">
@@ -161,7 +161,7 @@ function Purchase() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.requsition_id}
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-1 "
               />
               {formik.touched.requsition_id && formik.errors.requsition_id ? (
                 <p className="text-red-500 text-sm mt-1">
@@ -185,7 +185,7 @@ function Purchase() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.item_category}
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-1 "
               />
               {formik.touched.item_category && formik.errors.item_category ? (
                 <p className="text-red-500 text-sm mt-1">
@@ -209,7 +209,7 @@ function Purchase() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.unit_rate}
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-1 "
               />
               {formik.touched.unit_rate && formik.errors.unit_rate ? (
                 <p className="text-red-500 text-sm mt-1">
@@ -233,7 +233,7 @@ function Purchase() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.amount}
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-1 "
               />
               {formik.touched.amount && formik.errors.amount ? (
                 <p className="text-red-500 text-sm mt-1">
@@ -246,7 +246,7 @@ function Purchase() {
           <div className="mt-6">
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md p-1  shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Submit
             </button>
