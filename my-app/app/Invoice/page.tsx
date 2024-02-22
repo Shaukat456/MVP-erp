@@ -1,49 +1,39 @@
-import React from "react";
-import fs from "fs";
-import path from "path";
-// import pdf from "html-pdf";
-import { NextPage } from "next";
+"use client";
+import { useEffect, useState } from "react";
+// InvoiceComponent.jsx
+import useLocalStorage from "../hooks/useLocalStorage";
 
-const InvoicePage: NextPage = () => {
-  // Define function to generate PDF invoice
-  const generateInvoicePDF = () => {
-    const invoiceHTML = `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Invoice</title>
-        <style>
-          /* CSS styles for the invoice */
-          /* Include your CSS styles here */
-        </style>
-      </head>
-      <body>
-        <!-- Your HTML invoice template here -->
-        <!-- Use dynamic data from your form to populate the invoice -->
-      </body>
-      </html>
-    `;
+const InvoiceComponent = () => {
+  const [item, setItem] = useState<string | any>();
+  const [purchase, setPurchase] = useState<string | any>();
+  const [Item] = useLocalStorage("Item");
+  const [Purchase] = useLocalStorage("Purchase");
+  const [Issuance] = useLocalStorage("Issuance");
+  const [StoreStock] = useLocalStorage("StoreStock");
 
-    // Options for pdf creation
-    const options = {
-      format: "A4",
-    };
-
-    // Generate PDF file
-    // pdf.create(invoiceHTML, options).toFile("invoice.pdf", (err, res) => {
-    //   if (err) return console.log(err);
-    //   console.log(res); // Log the PDF file information
-    // });
-  };
-
+  useEffect(() => {
+    setItem(Item);
+  }, []);
   return (
-    <div>
-      <h1>Generate Invoice PDF</h1>
-      <button onClick={generateInvoicePDF}>Generate PDF</button>
+    <div className="px-8 py-4">
+      <div className="flex justify-between mb-4">
+        <div className="text-xl font-bold">{item?.item_id}</div>
+        <div className="text-lg">Invoice #{item?.item_category}</div>
+        <div className="text-lg">Invoice #{item?.vendor_id}</div>
+        <div className="text-lg">Invoice #{item?.model}</div>
+        <div className="text-lg">Invoice #{item?.make}</div>
+        <div className="text-lg">Invoice #{item?.item_unit}</div>
+        <div className="text-lg">Invoice #{item?.item_size}</div>
+        <div className="text-lg">Invoice #{item?.item_name}</div>
+      </div>
+      <div className="mb-4">
+        {/* <p className="text-gray-700">Issued to:</p>
+          <h2 className="font-medium">{invoiceData.clientName}</h2>
+          <p className="text-gray-700">{invoiceData.clientAddress}</p> */}
+      </div>
+      {/* ... other sections ... */}
     </div>
   );
 };
 
-export default InvoicePage;
+export default InvoiceComponent;
