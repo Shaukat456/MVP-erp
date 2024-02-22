@@ -9,7 +9,8 @@ function Purchase() {
   const router = useRouter();
 
   const [item] = useLocalStorage("Item");
-  const [purchaseData, setPurchaseData] = useLocalStorage("purchaseData");
+  const [requsition] = useLocalStorage("Requsition");
+  const [, setPurchaseData] = useLocalStorage("PurchaseData");
   const formik = useFormik({
     initialValues: {
       purchase_ID: "",
@@ -46,6 +47,8 @@ function Purchase() {
         // console.log("purchase submitted successfully!");
 
         setPurchaseData(values);
+        router.push("/Issuance");
+
         formik.resetForm();
       } catch (error) {
         console.error("Error submitting purchase:", error);
@@ -56,11 +59,13 @@ function Purchase() {
     let itemDetails = item;
     console.log(itemDetails, "itemDetails");
 
-    if (!item) {
-      router.push("/ItemForm");
-    }
+    // if (!requsition) {
+    //   router.push("/Requsition");
+    // }
     formik.setFieldValue("item_id", itemDetails?.itemId);
     formik.setFieldValue("item_category", itemDetails?.item_category);
+    formik.setFieldValue("item_category", itemDetails?.item_category);
+    formik.setFieldValue("requsition_id", requsition?.requsition_id);
   }, []);
 
   return (

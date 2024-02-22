@@ -9,7 +9,7 @@ const vendors = ["Vendor 1", "Vendor 2", "Vendor 3"];
 const categories = ["Category 1", "Category 2", "Category 3"];
 
 const ItemForm = () => {
-  const [item, setItem] = useLocalStorage("Item");
+  const [, setItem] = useLocalStorage("Item");
   const formik = useFormik({
     initialValues: {
       itemId: "",
