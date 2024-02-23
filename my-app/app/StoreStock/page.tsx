@@ -5,6 +5,13 @@ import * as Yup from "yup";
 import { useRouter } from "next/navigation";
 import useLocalStorage from "../hooks/useLocalStorage";
 
+export type StoreStockType = {
+  store_id: string;
+  location: string;
+  store: string;
+  purchase_id: string;
+};
+
 function StoreStock() {
   const router = useRouter();
   const [purchase] = useLocalStorage("PurchaseData");
@@ -16,7 +23,7 @@ function StoreStock() {
       location: "",
       store: "",
       purchase_id: "",
-    },
+    } as StoreStockType,
     validationSchema: Yup.object({
       store_id: Yup.string().required("Store ID is required"),
       location: Yup.string().required("Location is required"),
@@ -40,6 +47,10 @@ function StoreStock() {
         // }
 
         setStoreStock(values);
+
+        formik.resetForm();
+
+        router.push("/Invoice");
         console.log("store stock submitted successfully!");
       } catch (error) {
         console.error("Error submitting store stock:", error);

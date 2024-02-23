@@ -5,6 +5,16 @@ import * as Yup from "yup";
 import { useRouter } from "next/navigation";
 import useLocalStorage from "../hooks/useLocalStorage";
 
+export type PurchaseType = {
+  purchase_ID: string;
+  purchase_date: string;
+  item_id: string;
+  requsition_id: string;
+  item_category: string;
+  unit_rate: string;
+  amount: string;
+};
+
 function Purchase() {
   const router = useRouter();
 
@@ -20,7 +30,7 @@ function Purchase() {
       item_category: "",
       unit_rate: "",
       amount: "",
-    },
+    } as PurchaseType,
     validationSchema: Yup.object({
       purchase_ID: Yup.string().required("Purchase ID is required"),
       purchase_date: Yup.date().required("Purchase date is required"),
@@ -57,11 +67,10 @@ function Purchase() {
   });
   useEffect(() => {
     let itemDetails = item;
-    console.log(itemDetails, "itemDetails");
 
-    // if (!requsition) {
-    //   router.push("/Requsition");
-    // }
+    if (!requsition) {
+      router.push("/Requsition");
+    }
     formik.setFieldValue("item_id", itemDetails?.itemId);
     formik.setFieldValue("item_category", itemDetails?.item_category);
     formik.setFieldValue("item_category", itemDetails?.item_category);

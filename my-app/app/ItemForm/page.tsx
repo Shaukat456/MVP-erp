@@ -1,15 +1,31 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import useLocalStorage from "../hooks/useLocalStorage";
 
-const vendors = ["Vendor 1", "Vendor 2", "Vendor 3"];
-const categories = ["Category 1", "Category 2", "Category 3"];
+const Vendors = ["Shaukat", "Hamza", "Munim"];
+const categories = ["portale", "physical  ", "reliable"];
+export type ItemType = {
+  itemId: string;
+  item_name: string;
+  item_category: string;
+  item_unit: string;
+  item_size: string;
+  make: string;
+  model: string;
+  vendor_id: string;
+};
 
 const ItemForm = () => {
+  const router = useRouter();
+
   const [, setItem] = useLocalStorage("Item");
+  const [vendors, setVendors] = useLocalStorage("Vendors");
+  useEffect(() => {
+    setVendors(Vendors);
+  }, []);
   const formik = useFormik({
     initialValues: {
       itemId: "",
@@ -20,7 +36,7 @@ const ItemForm = () => {
       make: "",
       model: "",
       vendor_id: "",
-    },
+    } as ItemType,
     validationSchema: Yup.object({
       itemId: Yup.string().required("Item ID is required"),
       item_name: Yup.string().required("Item name is required"),
@@ -48,6 +64,8 @@ const ItemForm = () => {
         // if (!response.ok) {
         //   throw new Error("Failed to add item");
         // }
+
+        // router.push("/Requsition");
         console.log("Item added successfully!");
       } catch (error) {
         console.error("Error adding item:", error);
@@ -55,6 +73,7 @@ const ItemForm = () => {
       setSubmitting(false);
     },
   });
+
   return (
     <>
       <div className="w-1/2">
@@ -69,7 +88,7 @@ const ItemForm = () => {
               <div>
                 <label
                   htmlFor="itemId"
-                  className="block text-sm font-medium text-gray-900"
+                  className="block text-sm font-medium text-gray-900 p-1"
                 >
                   Item ID
                 </label>
@@ -81,7 +100,7 @@ const ItemForm = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.itemId}
-                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  className="mt-1  focus:ring-indigo-500 p-1 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                 />
                 {formik.touched.itemId && formik.errors.itemId ? (
                   <p className="text-red-500 text-sm mt-1">
@@ -93,7 +112,7 @@ const ItemForm = () => {
               <div>
                 <label
                   htmlFor="item_name"
-                  className="block text-sm font-medium text-gray-900"
+                  className="block text-sm font-medium p-1 text-gray-900"
                 >
                   Item Name
                 </label>
@@ -105,7 +124,7 @@ const ItemForm = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.item_name}
-                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  className="mt-1 focus:ring-indigo-500 p-1 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                 />
                 {formik.touched.item_name && formik.errors.item_name ? (
                   <p className="text-red-500 text-sm mt-1">
@@ -117,14 +136,14 @@ const ItemForm = () => {
               <div>
                 <label
                   htmlFor="item_category"
-                  className="block text-sm font-medium text-gray-900"
+                  className="block text-sm font-medium text-gray-900 p-1"
                 >
                   Item Category
                 </label>
                 <select
                   id="item_category"
                   name="item_category"
-                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  className="mt-1 focus:ring-indigo-500 p-1 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.item_category}
@@ -137,7 +156,7 @@ const ItemForm = () => {
                   ))}
                 </select>
                 {formik.touched.item_category && formik.errors.item_category ? (
-                  <p className="text-red-500 text-sm mt-1">
+                  <p className="text-red-500 text-sm mt-1 p-1">
                     {formik.errors.item_category}
                   </p>
                 ) : null}
@@ -146,7 +165,7 @@ const ItemForm = () => {
               <div>
                 <label
                   htmlFor="item_unit"
-                  className="block text-sm font-medium text-gray-900"
+                  className="block text-sm font-medium p-1 text-gray-900"
                 >
                   Item Unit
                 </label>
@@ -158,10 +177,10 @@ const ItemForm = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.item_unit}
-                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  className="mt-1 focus:ring-indigo-500 p-1 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                 />
                 {formik.touched.item_unit && formik.errors.item_unit ? (
-                  <p className="text-red-500 text-sm mt-1">
+                  <p className="text-red-500 text-sm mt-1 p-1">
                     {formik.errors.item_unit}
                   </p>
                 ) : null}
@@ -170,7 +189,7 @@ const ItemForm = () => {
               <div>
                 <label
                   htmlFor="item_size"
-                  className="block text-sm font-medium text-gray-900"
+                  className="block text-sm font-medium text-gray-900 p-1"
                 >
                   Item Size
                 </label>
@@ -182,7 +201,7 @@ const ItemForm = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.item_size}
-                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  className="mt-1  focus:ring-indigo-500 p-1 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                 />
                 {formik.touched.item_size && formik.errors.item_size ? (
                   <p className="text-red-500 text-sm mt-1">
@@ -194,7 +213,7 @@ const ItemForm = () => {
               <div>
                 <label
                   htmlFor="make"
-                  className="block text-sm font-medium text-gray-900"
+                  className="block text-sm font-medium p-1 text-gray-900"
                 >
                   Make
                 </label>
@@ -206,10 +225,10 @@ const ItemForm = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.make}
-                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  className="mt-1 focus:ring-indigo-500 p-1 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                 />
                 {formik.touched.make && formik.errors.make ? (
-                  <p className="text-red-500 text-sm mt-1">
+                  <p className="text-red-500 text-sm mt-1 p-1">
                     {formik.errors.make}
                   </p>
                 ) : null}
@@ -218,7 +237,7 @@ const ItemForm = () => {
               <div>
                 <label
                   htmlFor="model"
-                  className="block text-sm font-medium text-gray-900"
+                  className="block text-sm font-medium p-1 text-gray-900"
                 >
                   Model
                 </label>
@@ -230,7 +249,7 @@ const ItemForm = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.model}
-                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  className="mt-1 focus:ring-indigo-500 p-1 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                 />
                 {formik.touched.model && formik.errors.model ? (
                   <p className="text-red-500 text-sm mt-1">
@@ -244,22 +263,23 @@ const ItemForm = () => {
                   htmlFor="vendor_id"
                   className="block text-sm font-medium text-gray-900"
                 >
-                  Vendor ID
+                  Vendor Name
                 </label>
                 <select
                   id="vendor_id"
                   name="vendor_id"
-                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  className="mt-1 focus:ring-indigo-500 p-1 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.vendor_id}
                 >
                   <option value="">Select a vendor</option>
-                  {vendors.map((vendor, index) => (
-                    <option key={index} value={vendor}>
-                      {vendor}
-                    </option>
-                  ))}
+                  {vendors &&
+                    vendors.map((vendor: any, index: number) => (
+                      <option key={index} value={vendor}>
+                        {vendor}
+                      </option>
+                    ))}
                 </select>
                 {formik.touched.vendor_id && formik.errors.vendor_id ? (
                   <p className="text-red-500 text-sm mt-1">

@@ -5,6 +5,15 @@ import { useRouter } from "next/navigation";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { useEffect } from "react";
 
+export type IssuanceType = {
+  idissuance: string;
+  issuancedate: string;
+  location: string;
+  itemId: string;
+  issuance_deprt: string;
+  issuance_qty: string;
+};
+
 function Issuance() {
   const router = useRouter();
   const [setIssuance] = useLocalStorage("Issuance");
@@ -20,7 +29,7 @@ function Issuance() {
       itemId: "",
       issuance_deprt: "",
       issuance_qty: "",
-    },
+    } as IssuanceType,
     validationSchema: Yup.object({
       idissuance: Yup.string().required("Issuance ID is required"),
       issuancedate: Yup.date().required("Issuance date is required"),
@@ -51,9 +60,9 @@ function Issuance() {
     },
   });
   useEffect(() => {
-    // if (!purchase) {
-    //   router.push("/Purchase");
-    // }
+    if (!purchase) {
+      router.push("/StoreStock");
+    }
     formik.setFieldValue("item_id", item?.itemId);
   }, []);
 

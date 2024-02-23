@@ -5,6 +5,20 @@ import * as Yup from "yup";
 import { useRouter } from "next/navigation";
 import useLocalStorage from "../hooks/useLocalStorage";
 
+export type RequisitionType = {
+  requsition_id: string;
+  requsition_date: string;
+  requsition_location: string;
+  requsition_location_department: string;
+  itemId: string;
+  item_name: string;
+  item_category: string;
+  item_unit: string;
+  required_quantity: string;
+  usage_for: string;
+  requsition_comment: string;
+};
+
 function Requisition() {
   const [requsition, setRequsitionData] = useLocalStorage("Requsition");
   const [item] = useLocalStorage("Item");
@@ -30,7 +44,7 @@ function Requisition() {
       required_quantity: "",
       usage_for: "",
       requsition_comment: "",
-    },
+    } as RequisitionType,
     validationSchema: Yup.object({
       requsition_id: Yup.string().required("Requisition ID is required"),
       requsition_date: Yup.date().required("Requisition date is required"),
@@ -78,10 +92,13 @@ function Requisition() {
     },
   });
   useEffect(() => {
-    // if (!purchase) {
-    //   router.push("/Purchase");
-    // }
+    if (!purchaseData) {
+      router.push("/Purchase");
+    }
     formik.setFieldValue("item_id", item?.itemId);
+    formik.setFieldValue("item_name", item?.item_name);
+    formik.setFieldValue("item_category", item?.item_category);
+    formik.setFieldValue("item_unit", item?.item_unit);
   }, []);
 
   return (
