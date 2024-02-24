@@ -8,7 +8,10 @@ import { ItemType } from "../ItemForm/page";
 import { StoreStockType } from "../StoreStock/page";
 import { RequisitionType } from "../Requsition/page";
 import generatePDF, { usePDF } from "react-to-pdf";
+import { useRouter } from "next/navigation";
 const InvoiceComponent = () => {
+  const router = useRouter();
+
   const [item, setItem] = useState<ItemType>();
   const [purchase, setPurchase] = useState<PurchaseType>();
   const [issuance, setIssuance] = useState<IssuanceType>();
@@ -16,20 +19,23 @@ const InvoiceComponent = () => {
   const [requsition, setRequsitionData] = useState<RequisitionType>();
 
   const [Item] = useLocalStorage("Item");
-  const [Purchase] = useLocalStorage("Purchase");
+  const [Purchase] = useLocalStorage("PurchaseData");
   const [Requsition] = useLocalStorage("Requsition");
   const [Issuance] = useLocalStorage("Issuance");
   const [StoreStock] = useLocalStorage("StoreStock");
 
-  const { toPDF, targetRef } = usePDF({ filename: "invoice.pdf" });
+  const { toPDF, targetRef } = usePDF({ filename: "Report.pdf" });
 
   useEffect(() => {
+    if (!Item || !Purchase || !Requsition || !Issuance || !StoreStock) {
+      router.push("/ItemForm");
+    }
     setItem(Item);
     setIssuance(Issuance);
     setRequsitionData(Requsition);
     setPurchase(Purchase);
     setStoreStock(StoreStock);
-  }, []);
+  }, [router]);
   return (
     // <div className="px-8 py-4">
     //   <div className="flex justify-between mb-4">
@@ -51,8 +57,10 @@ const InvoiceComponent = () => {
     // </div>
     <>
       <div className="container mx-auto px-4 py-8" ref={targetRef}>
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <h1 className="text-3xl font-semibold mb-4">Invoice</h1>
+        <div className="bg-slate-100 rounded-lg shadow-2xl p-8">
+          <h1 className="text-5xl font-semibold mb-10 text-center ">Invoice</h1>
+          <hr className="pb-10" />
+          <h2 className="text-2xl font-semibold mb-4">Item Details</h2>
           <div className="flex justify-between mb-4">
             <div className="w-1/2">
               <p className="font-semibold">Item ID:</p>
@@ -232,7 +240,7 @@ const InvoiceComponent = () => {
       <button
         onClick={() => toPDF()}
         type="button"
-        className="rounded-full bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        className="rounded-full mb-10 bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       >
         Download PDF
       </button>

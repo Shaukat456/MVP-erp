@@ -57,9 +57,9 @@ function Purchase() {
         // console.log("purchase submitted successfully!");
 
         setPurchaseData(values);
-        router.push("/Issuance");
 
         formik.resetForm();
+        router.push("/Issuance");
       } catch (error) {
         console.error("Error submitting purchase:", error);
       }

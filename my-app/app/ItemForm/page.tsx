@@ -65,7 +65,7 @@ const ItemForm = () => {
         //   throw new Error("Failed to add item");
         // }
 
-        // router.push("/Requsition");
+        router.push("/Requsition");
         console.log("Item added successfully!");
       } catch (error) {
         console.error("Error adding item:", error);

@@ -18,7 +18,7 @@ function Issuance() {
   const router = useRouter();
   const [setIssuance] = useLocalStorage("Issuance");
   const [item] = useLocalStorage("Item");
-  const [purchase] = useLocalStorage("Purchase");
+  const [purchase] = useLocalStorage("PurchaseData");
 
   useEffect(() => {});
   const formik = useFormik({
@@ -60,9 +60,9 @@ function Issuance() {
     },
   });
   useEffect(() => {
-    if (!purchase) {
-      router.push("/StoreStock");
-    }
+    // if (!purchase) {
+    //   router.push("/Purchase");
+    // }
     formik.setFieldValue("item_id", item?.itemId);
   }, []);
 

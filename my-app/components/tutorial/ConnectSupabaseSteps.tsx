@@ -5,7 +5,7 @@ export default function ConnectSupabaseSteps() {
     <ol className="flex flex-col gap-6">
       <Step title="Create Supabase project">
         <p>
-          Head over to{" "}
+          Head over to
           <a
             href="https://app.supabase.com/project/_/settings/api"
             target="_blank"
@@ -13,22 +13,22 @@ export default function ConnectSupabaseSteps() {
             rel="noreferrer"
           >
             database.new
-          </a>{" "}
+          </a>
           and create a new Supabase project.
         </p>
       </Step>
 
       <Step title="Declare environment variables">
         <p>
-          Rename the{" "}
+          Rename the
           <span className="px-2 py-1 rounded-md bg-foreground/20 text-foreground/80">
             .env.example
-          </span>{" "}
-          file in your Next.js app to{" "}
+          </span>
+          file in your Next.js app to
           <span className="px-2 py-1 rounded-md bg-foreground/20 text-foreground/80">
             .env.local
-          </span>{" "}
-          and populate with values from{" "}
+          </span>
+          and populate with values from
           <a
             href="https://app.supabase.com/project/_/settings/api"
             target="_blank"

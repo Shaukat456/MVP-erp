@@ -92,8 +92,8 @@ function Requisition() {
     },
   });
   useEffect(() => {
-    if (!purchaseData) {
-      router.push("/Purchase");
+    if (!item) {
+      router.push("/ItemForm");
     }
     formik.setFieldValue("item_id", item?.itemId);
     formik.setFieldValue("item_name", item?.item_name);
