@@ -35,7 +35,7 @@ const userData = [
   },
 ];
 
-export default function Example() {
+export default function Search() {
   // Initialize Supabase client
   const supabaseKey =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZobWZiZGN5aHhsc2RlZmN1Ym91Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDg3NjgwNDgsImV4cCI6MjAyNDM0NDA0OH0.5SXgBx7mF7cckGFOI0PLCzqBrmTyJ-_Ygi1m-2Bd65A";
@@ -43,25 +43,22 @@ export default function Example() {
   const supabaseUrl = "https://fhmfbdcyhxlsdefcubou.supabase.co";
   const supabase = createClient(supabaseUrl, supabaseKey);
 
-  console.log(supabase);
-
-  const { data: ITEMSCATALOG } = supabase.from("ITEMSCATALOG").select("*");
-
-  console.log(ITEMSCATALOG);
+  //   console.log(supabase.from("ITEMSCATALOG").select("*"));
   // Example function to fetch data from a table
-  //   const fetchData = async () => {
-  //     try {
-  //       const { data, error } = await supabase
-  //         .from("your_table_name")
-  //         .select("*");
-  //       if (error) {
-  //         throw error;
-  //       }
-  //       console.log("Data:", data);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error.message);
-  //     }
-  //   };
+  const fetchData = async () => {
+    try {
+      const { data: itemsCatalog, error: itemsError } = await supabase
+        .from("ITEMSCATALOG")
+        .insert({});
+      //   const { data, error } = await supabase.from("ITEMSCATALOG").select("*");
+
+      if (itemsError) {
+        throw itemsError.message;
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    }
+  };
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchBy, setSearchBy] = useState("itemId");
