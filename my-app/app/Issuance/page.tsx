@@ -16,7 +16,7 @@ export type IssuanceType = {
 
 function Issuance() {
   const router = useRouter();
-  const [setIssuance] = useLocalStorage("Issuance");
+  const [, setIssuance] = useLocalStorage("Issuance");
   const [item] = useLocalStorage("Item");
   const [purchase] = useLocalStorage("PurchaseData");
 
@@ -53,6 +53,7 @@ function Issuance() {
         // }
         setIssuance(values);
         console.log(values);
+        router.push("/Invoice");
         console.log("Issuance submitted successfully!");
       } catch (error) {
         console.error("Error submitting Issuance:", error);
@@ -85,7 +86,7 @@ function Issuance() {
               id="idissuance"
               name="idissuance"
               type="text"
-              placeholder="Requisition ID"
+              placeholder="Issuance ID"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.idissuance}
@@ -211,6 +212,12 @@ function Issuance() {
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
         >
           Submit
+        </button>
+        <button
+          onClick={() => router.push("/Invoice")}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+        >
+          Generate Report
         </button>
       </form>
     </div>

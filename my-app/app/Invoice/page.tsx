@@ -27,9 +27,9 @@ const InvoiceComponent = () => {
   const { toPDF, targetRef } = usePDF({ filename: "Report.pdf" });
 
   useEffect(() => {
-    if (!Item || !Purchase || !Requsition || !Issuance || !StoreStock) {
-      router.push("/ItemForm");
-    }
+    // if (!Item || !Purchase || !Requsition || !Issuance || !StoreStock) {
+    //   router.push("/ItemForm");
+    // }
     setItem(Item);
     setIssuance(Issuance);
     setRequsitionData(Requsition);
@@ -58,7 +58,7 @@ const InvoiceComponent = () => {
     <>
       <div className="container mx-auto px-4 py-8" ref={targetRef}>
         <div className="bg-slate-100 rounded-lg shadow-2xl p-8">
-          <h1 className="text-5xl font-semibold mb-10 text-center ">Invoice</h1>
+          <h1 className="text-5xl font-semibold mb-10 text-center ">Report</h1>
           <hr className="pb-10" />
           <h2 className="text-2xl font-semibold mb-4">Item Details</h2>
           <div className="flex justify-between mb-4">

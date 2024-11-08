@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
@@ -45,8 +45,6 @@ function StoreStock() {
         // if (!response.ok) {
         //   throw new Error("Failed to submit store stock");
         // }
-
-        setStoreStock(values);
 
         formik.resetForm();
 
